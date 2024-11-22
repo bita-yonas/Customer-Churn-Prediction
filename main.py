@@ -89,7 +89,7 @@ def explain_prediction(probability, input_dict, surname):
     Here is the customer's information:
     {input_dict}
 
-    Here are the machine learning model's top 10 most important features for predicting churn:
+    Below are the top features contributing to the churn prediction and their relative importance scores::
 
       Feature            | Importance 
     |--------------------|------------|
