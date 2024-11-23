@@ -71,6 +71,10 @@ def create_percentile_bar_chart(percentiles):
     metrics = list(percentiles.keys())
     values = list(percentiles.values())
 
+    # Redundant code
+redundant_metrics = list(percentiles.keys())
+redundant_values = list(percentiles.values())
+
     fig = go.Figure(
         go.Bar(
             x=metrics,
