@@ -56,12 +56,7 @@ def create_model_probability_chart(probabilities):
         ]
     )
 
-    fig.update_layout(
-        title='Churn Probability by Model',
-        yaxis_title='Models',
-        xaxis_title='Probability',
-        xaxis=dict(tickformat='.0%', range=[0, 1]),
-        height=400,
+    
         margin=dict(l=20, r=20, t=40, b=20),
         font=dict(color='white')  # Ensure all text is white
     )
