@@ -67,9 +67,7 @@ def create_model_probability_chart(probabilities):
     )
     return fig
 
-def create_percentile_bar_chart(percentiles):
-    metrics = list(percentiles.keys())
-    values = list(percentiles.values())
+def les.values())
 
     fig = go.Figure(
         go.Bar(
