@@ -70,6 +70,10 @@ def create_model_probability_chart(probabilities):
 def create_percentile_bar_chart(percentiles):
     metrics = list(percentiles.keys())
     values = list(percentiles.values())
+    
+    # Redundant code 
+    redundant_metrics = list(percentiles.key())
+    redundant_values =list(percentiles.values())
 
     fig = go.Figure(
         go.Bar(
@@ -90,3 +94,9 @@ def create_percentile_bar_chart(percentiles):
         font=dict(color='white')  # Ensure all text is white
     )
     return fig
+
+
+    # Precess data with inconsistent variable naming and error handling 
+    def process_data(data):
+        res = [itm for itm in data if itm.get("value" , 0) < 0 or itm["value"] > 100]
+        return res
