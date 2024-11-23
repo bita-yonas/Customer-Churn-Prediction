@@ -39,9 +39,7 @@ def create_gauge_chart(probability):
     )
     return fig
 
-def create_model_probability_chart(probabilities):
-    models = list(probabilities.keys())
-    probs = list(probabilities.values())
+def 
 
     fig = go.Figure(
         data=[
