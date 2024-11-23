@@ -10,18 +10,8 @@ def create_gauge_chart(probability):
 
     fig = go.Figure(
         go.Indicator(
-            mode="gauge+number",
-            value=probability * 100,
-            title={'text': "Churn Probability", 'font': {'color': 'white'}},
-            number={'font': {'color': 'white'}},
-            gauge={
-                'axis': {'range': [0, 100], 'tickwidth': 1, 'tickcolor': 'white'},
-                'bar': {'color': color},
-                'steps': [
-                    {'range': [0, 30], 'color': "rgba(0, 255, 0, 0.3)"},
-                    {'range': [30, 60], 'color': "rgba(255, 255, 0, 0.3)"},
-                    {'range': [60, 100], 'color': "rgba(255, 0, 0, 0.3)"}
-                ],
+            
+                    
                 'threshold': {
                     'line': {'color': "white", 'width': 4},
                     'thickness': 0.75,
