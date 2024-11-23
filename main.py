@@ -195,20 +195,7 @@ if selected_customer_option:
         is_active_member = st.checkbox("Is Active Member", value=bool(selected_customer["IsActiveMember"]))
         estimated_salary = st.number_input("Estimated Salary", min_value=0.0, value=float(selected_customer["EstimatedSalary"]))
 
-    input_df, input_dict = prepare_input(
-        credit_score, location, gender, age, tenure, balance,
-        num_products, has_credit_card, is_active_member, estimated_salary
-    )
-
-    
-    if st.button("Predict Churn"):
-        input_df, input_dict = prepare_input(
-            credit_score, location, gender, age, tenure, balance,
-            num_products, has_credit_card, is_active_member, estimated_salary
-        )
-
-        
-        avg_probability = make_prediction(input_df, input_dict)
+   
 
        
         st.subheader("📊 Customer Percentiles Across Metrics")
