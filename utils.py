@@ -31,11 +31,7 @@ def create_gauge_chart(probability):
         )
     )
 
-    fig.update_layout(
-        paper_bgcolor="rgba(0, 0, 0, 0)",
-        font={'color': "white"},
-        width=400, height=300,
-        margin=dict(l=20, r=20, t=50, b=20)
+    
     )
     return fig
 
