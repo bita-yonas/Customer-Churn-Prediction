@@ -89,7 +89,7 @@ def explain_prediction(probability, input_dict, surname):
     Here is the customer's information:
     {input_dict}
 
-    Below are the top features contributing to the churn prediction and their relative importance scores::
+    Here are the machine learning model's top 10 most important features for predicting churn:
 
       Feature            | Importance 
     |--------------------|------------|
@@ -107,29 +107,7 @@ def explain_prediction(probability, input_dict, surname):
     | Tenure             | 0.030054   |
     | Gender_Male        | 0.000000   |
 
-
-    {pd.set_option('display.max_columns', None)}
-
-    here are the summary statistic for churned customer:
-    {df[df['Exited'] == 1].describe()}
-
-    here are the summary statistic for non-churned customer:
-    {df[df['Exited'] == 0].describe()}
-
-
-   
-       - Generate a concise, 3-sentence explanation about the customer’s likelihood to stay or leave, based on key patterns and behavioral insights:  
-
-        - If the customer has over a 40% risk of churning: Highlight specific behaviors or trends from the customer's profile that resemble those of churned customers. Focus on potential pain points, behavioral shifts, or unmet needs that may be driving the risk.  
-
-        - If the customer has less than a 40% risk of churning**: Emphasize the positive aspects of the customer’s engagement, loyalty patterns, or alignment with satisfied customers. Highlight factors that suggest stability, satisfaction, or ongoing commitment.  
-
-        -Use the provided customer information, behavioral trends, summary statistics, and feature importances to guide your explanation.  
-        -Do not reference the churn probability, machine learning models, or technical features explicitly.** Provide an insightful, natural explanation that focuses on the customer’s experience and engagement.  
-    
     """
-
-    print("EXPLANATION PROMPT", prompt)
 
     raw_response = client.chat.completions.create(
         model="llama-3.2-3b-preview",
@@ -150,13 +128,6 @@ def generate_email(probability, input_dict, explanation, surname):
     {explanation}
 
     Write a personalized, engaging email to the customer, encouraging them to continue their relationship with the bank.  
-    The email should:
-    - Acknowledge the customer’s value to the bank.
-    - Use positive, empathetic language.
-    - Present personalized incentives in bullet points to address potential concerns and boost loyalty.
-    - End with a friendly, actionable call-to-action encouraging them to stay in touch.
-
-    Ensure the tone is warm, professional, and customer-focused.
     """
 
     raw_response = client.chat.completions.create(
@@ -167,7 +138,6 @@ def generate_email(probability, input_dict, explanation, surname):
     return raw_response.choices[0].message.content
 
 st.title("📊 Customer Churn Prediction")
-st.markdown("<hr style='border:1px solid #ddd;'>", unsafe_allow_html=True)
 
 df = pd.read_csv("churn.csv")
 customers = [f"{row['CustomerId']} - {row['Surname']}" for _, row in df.iterrows()]
@@ -195,33 +165,12 @@ if selected_customer_option:
         is_active_member = st.checkbox("Is Active Member", value=bool(selected_customer["IsActiveMember"]))
         estimated_salary = st.number_input("Estimated Salary", min_value=0.0, value=float(selected_customer["EstimatedSalary"]))
 
-    input_df, input_dict = prepare_input(
-        credit_score, location, gender, age, tenure, balance,
-        num_products, has_credit_card, is_active_member, estimated_salary
-    )
-
-    
     if st.button("Predict Churn"):
-        input_df, input_dict = prepare_input(
-            credit_score, location, gender, age, tenure, balance,
-            num_products, has_credit_card, is_active_member, estimated_salary
-        )
-
-        
         avg_probability = make_prediction(input_df, input_dict)
 
-       
-        st.subheader("📊 Customer Percentiles Across Metrics")
-        percentiles = calculate_customer_percentiles(df, selected_customer)
-        fig_percentiles = ut.create_percentile_bar_chart(percentiles)
-        st.plotly_chart(fig_percentiles, use_container_width=True)
-
-        
         explanation = explain_prediction(avg_probability, input_dict, selected_customer["Surname"])
-        st.subheader("📝 Explanation of Predictions")
         st.markdown(explanation)
 
-        
         email = generate_email(avg_probability, input_dict, explanation, selected_customer["Surname"])
-        st.subheader("📧 Personalized Email")
         st.markdown(email)
+
