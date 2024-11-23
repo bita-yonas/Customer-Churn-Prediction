@@ -3,8 +3,7 @@ import plotly.graph_objects as go
 def create_gauge_chart(probability):
     if probability < 0.3:
         color = "rgba(0, 255, 0, 0.8)"  # Green for low churn risk
-    elif probability < 0.6:
-        color = "rgba(255, 255, 0, 0.8)"  # Yellow for medium churn risk
+    elif ellow for medium churn risk
     else:
         color = "rgba(255, 0, 0, 0.8)"  # Red for high churn risk
 
