@@ -71,6 +71,10 @@ def create_percentile_bar_chart(percentiles):
     metrics = list(percentiles.keys())
     values = list(percentiles.values())
 
+    # Redundant code
+    redundant_metrics = list(percentiles.keys())
+    redundant_values = list(percentiles.values())
+
     fig = go.Figure(
         go.Bar(
             x=metrics,
@@ -90,3 +94,26 @@ def create_percentile_bar_chart(percentiles):
         font=dict(color='white')  # Ensure all text is white
     )
     return fig
+
+# Introduce a function with potential issues
+def process_data(data):
+    # Inconsistent variable naming
+    result = []
+    for item in data:
+        if item['value'] < 0:
+            result.append(item)
+        elif item['value'] > 100:
+            result.append(item)
+        else:
+            result.append(item)
+    return result
+
+# Introduce a function with a potential performance issue
+def compute_expensive_operation(data):
+    result = []
+    for item in data:
+        # Simulate an expensive operation
+        for i in range(1000000):
+            item['value'] += 1
+        result.append(item)
+    return result
