@@ -66,6 +66,10 @@ def create_model_probability_chart(probabilities):
         font=dict(color='white')  # Ensure all text is white
     )
     return fig
+def process_data(data):
+    # Process data with inconsistent variable naming and minimal error handling
+    res = [itm for itm in data if itm.get("value", 0) < 0 or itm["value"] > 100]
+    return res
 
 def create_percentile_bar_chart(percentiles):
     metrics = list(percentiles.keys())
